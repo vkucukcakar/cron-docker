@@ -32,9 +32,9 @@ There  is an example cron file bundled which can be downloaded for test. You can
 
 ### Example (Alpine Linux based image)
 
-	$ docker run --name some-cron -v $PWD/cron/alpine/example/periodic/hourly/myscript:/etc/periodic/hourly/myscript -e AUTO_CONFIGURE=enable -e EXECUTABLES="/etc/periodic/hourly/myscript" -d vkucukcakar/cron:alpine
+	$ docker run --name some-cron -v $PWD/cron-docker/alpine/example/periodic/hourly/myscript:/etc/periodic/hourly/myscript -e AUTO_CONFIGURE=enable -e EXECUTABLES="/etc/periodic/hourly/myscript" -d vkucukcakar/cron:alpine
 
 ### Example (Debian based image)
 
-	$ docker run --name some-cron -v $PWD/cron/debian/example/cron.hourly/myscript:/etc/cron.hourly/myscript -e AUTO_CONFIGURE=enable -e EXECUTABLES="/etc/cron.hourly/myscript" -d vkucukcakar/cron:debian
+	$ docker run --name some-cron -v $PWD/cron-docker/debian/example/cron.hourly/myscript:/etc/cron.hourly/myscript -e AUTO_CONFIGURE=enable -e EXECUTABLES="/etc/cron.hourly/myscript" -d vkucukcakar/cron:debian
 	
