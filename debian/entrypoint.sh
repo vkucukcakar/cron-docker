@@ -27,7 +27,7 @@
 if [ "$AUTO_CONFIGURE" == "enable" ]; then
 	echo "AUTO_CONFIGURE enabled, starting auto configuration."	
 	# Check if the required environment variable is set and configure files. EXECUTABLES should contain space separated filenames to give execute permission.
-	if [ ! -z "$EXECUTABLES" ] && [[ $EXECUTABLES =~ ^([[:alnum:]/\._-]+[[:blank:]]*)+$ ]]; then
+	if [ "$EXECUTABLES" ] && [[ $EXECUTABLES =~ ^([[:alnum:]/\._-]+[[:blank:]]*)+$ ]]; then
 		for _EXECUTABLE_FILE in $EXECUTABLES; do
 			if [ -f ${_EXECUTABLE_FILE} ]; then
 				echo "Giving execute permission to file ${_EXECUTABLE_FILE}"
@@ -79,6 +79,7 @@ if [[ "$@" ]]; then
 	$@
 	EXITCODE=$?
 	if [[ $EXITCODE > 0 ]]; then 
+		echo "Error: $@ finished with exit code: $EXITCODE"
 		exit $EXITCODE
 	fi
 fi

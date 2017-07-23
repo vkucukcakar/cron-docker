@@ -3,9 +3,9 @@
 cron Docker image for time-based job scheduling
 
 * Schedules jobs to run periodically.
-* Put/mount your executable files into "/etc/cron.hourly/", "/etc/cron.daily/", "/etc/cron.monthly/", "/etc/cron.weekly/" to schedule with cron.
+* Copy/mount your executable files into "/etc/cron.hourly/", "/etc/cron.daily/", "/etc/cron.monthly/", "/etc/cron.weekly/" to schedule with cron.
 * Do not use *.sh or any other file extensions (Debian ignores executables with extensions in cron.* directories).
-* Put/mount your custom cron files into "/etc/cron.d/" for arbitrary scheduling.
+* Copy/mount your custom cron files into "/etc/cron.d/" for arbitrary scheduling.
 * Mount executables to any location you want. Enable auto configure to give execute permission to files.
 * Executable output can be redirected back to Docker logs by using '/var/log/cron.log' or '/proc/1/fd/1'
   Error logs can be redirected back to Docker logs by mixing with stdout or by using '/var/log/cron-error.log' or '/proc/1/fd/2'
@@ -21,8 +21,9 @@ cron Docker image for time-based job scheduling
 ## Environment variables supported
 
 * AUTO_CONFIGURE=[enable|disable]
-
-* EXECUTABLES=[space separated filenames to give execute permission]
+	Enable automatic configuration 
+* EXECUTABLES=[]
+	Space separated filenames to give execute permission
 
 ## Examples
 
