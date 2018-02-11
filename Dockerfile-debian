@@ -2,14 +2,14 @@
 # vkucukcakar/cron
 # cron Docker image for time-based job scheduling
 # Copyright (c) 2017 Volkan Kucukcakar
-# 
+#
 # This file is part of vkucukcakar/cron.
-# 
+#
 # vkucukcakar/cron is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 2 of the License, or
 # (at your option) any later version.
-# 
+#
 # vkucukcakar/cron is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -17,11 +17,11 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# 
+#
 # This copyright notice and license must be retained in all files and derivative works.
 ###
 
-FROM vkucukcakar/runit:1.0.3-debian
+FROM vkucukcakar/runit:1.0.4-debian
 
 LABEL maintainer "Volkan Kucukcakar"
 
@@ -32,13 +32,11 @@ LABEL maintainer "Volkan Kucukcakar"
 VOLUME [ "/etc/cron.d/", "/etc/cron.hourly/", "/etc/cron.daily/", "/etc/cron.monthly/", "/etc/cron.weekly/" ]
 
 # Install cron
-RUN apt-get update -q && apt-get install -y cron
+RUN apt-get update -q && apt-get install -y cron \
+    && rm -rf /var/lib/apt/lists/*
 
 # Note: Common utilities wget, curl already installed on base image
 
-# Clean up the apt cache
-RUN rm -rf /var/lib/apt/lists/*
-    
 # Create cron runit service.
 RUN mkdir -p /etc/service/cron/
 COPY debian/cron.run /etc/service/cron/run
@@ -49,8 +47,8 @@ RUN chmod 755 /etc/service/cron/run
 # You can redirect stdout and stderr back to Docker by using "/var/log/cron.log" and "/var/log/cron-error.log" (or just "/proc/1/fd/1" and "/proc/1/fd/2")
 # e.g.: echo "Hello World" >>/var/log/cron.log 2>&1
 # e.g.: echo "Hello World" >>/var/log/cron.log 2>>/var/log/cron-error.log
-RUN ln -sf /proc/1/fd/1 /var/log/cron.log
-RUN ln -sf /proc/1/fd/2 /var/log/cron-error.log
+RUN ln -sf /proc/1/fd/1 /var/log/cron.log \
+    && ln -sf /proc/1/fd/2 /var/log/cron-error.log
 
 
 # Setup entrypoint
